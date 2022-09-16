@@ -5,29 +5,10 @@ import json
 import platform
 import multiprocessing
 
-amd = True
-try:
-    from pyADL.pyadl import *
-except:
-    amd = False
-
-from GPUtil import GPUtil
-
-from frames import window
-from gpu_utils import isVulkanInstalled
-from install import i
+from install import install_all
 import PySimpleGUI as sg
 
-
-devices = {}
-
-devices["NVIDIA"] = GPUtil.getGPUs()
-if amd:
-    devices["AMD"] = ADLManager.getInstance().getDevices()
-else:
-    devices['AMD'] = []
-
-current_frame = 1 if isVulkanInstalled() else 0
+from frames import window
 
 def main():
     global current_frame
@@ -54,8 +35,6 @@ def main():
 
         if event in ("-DGHI-"):
             window["-DGHI-"].update(True)
-
-        
 
         if event in ("InstallDir"):
             folder = values["InstallDir"]
