@@ -1,6 +1,4 @@
 import os
-import requests
-import json
 
 VK_SDK_PATH = os.environ.get("VK_SDK_PATH")
 

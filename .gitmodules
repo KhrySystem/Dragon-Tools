@@ -1,9 +1,3 @@
-[submodule "installer/pyADL"]
-	path = tools/dgInstaller/pyADL
-	url = https://github.com/nicolargo/pyADL
-[submodule "installer/GPUtil"]
-	path = installer/GPUtil
-	url = https://github.com/anderskm/GPUtil
 [submodule "installer/PySimpleGUI"]
 	path = installer/PySimpleGUI
 	url = https://github.com/PySimpleGUI/PySimpleGUI

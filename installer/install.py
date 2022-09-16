@@ -1,4 +1,5 @@
 import requests
+import subprocess
 import multiprocessing
 import os
 
@@ -16,6 +17,15 @@ def install(path):
 	pass
 
 def install_all(window, values):
+	git_version = subprocess.run(["git","--version"], 
+		stdout=subprocess.PIPE,
+		stderr=subprocess.PIPE, 
+		text=True
+	)
+
+	if git_version.stdout == "" or git_version.stderr != "":
+		print("GIT is either not installed on your system, or was not installed properly. Install GIT and try again.")
+
 	count = 0
 	
 	if values["-DGHI-"]:
@@ -25,7 +35,7 @@ def install_all(window, values):
 		count += 1
 
 	if values["-DGSI-"]:
-		count += 1
+		count += 2
 
 	if values["-VKHI-"]:
 		count += 1
@@ -54,11 +64,15 @@ def install_all(window, values):
 	window["-DPBT-"].update("Downloading https://github.com/KhrySystem/Dragon.git (" + str(current_download) + "/" + str(count) + ")")
 	window["-EPBT-"].update("Waiting... (" + str(current_extract) + "/" + str(count) + ")")
 	window["-IPBT-"].update("Waiting... (" + str(current_extract) + "/" + str(count) + ")")
-	dp = multiprocessing.Process(target=download, args=("https://github.com/KhrySystem/Dragon-Headers.git",))
-	dp.start()
-	dp.join()
-	ep = multiprocessing.Process(target=extract, args=("cache/modules/dragon-headers.git",))
-	ep.start()
+	if values["-DGHI-"]:
+		dp = multiprocessing.Process(target=download, args=("https://github.com/KhrySystem/Dragon-Headers.git",))
+		dp.start()
+		dp.join()
+
+		ep = multiprocessing.Process(target=extract, args=("cache/modules/dragon-headers.git",))
+		ep.start()
+
+	if values["-DGBI-"]
 	dp = multiprocessing.Process(target=download, args=("https://github.com/KhronosGroup/Dragon-Loader.git",))
 	dp.start()
 	ep.join()
