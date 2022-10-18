@@ -1,3 +1,4 @@
+#define DRAGON_STREAMBREATH_ENABLED
 #include <dragon/dragon.hpp>
 #include <iostream>
 
