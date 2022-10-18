@@ -3,21 +3,21 @@
 
 struct App {
 	App() {
-		dgInit("openWindow.cpp");
+		Dragon::init("openWindow.cpp");
 
-		DgWindowCreateParams params{};
+		Dragon::WindowCreateParams params{};
 		params.width = 800;
 		params.height = 600;
-		if(!dgCreateNewWindow(params)) {
+		if(!Dragon::createNewWindow(params)) {
 			throw std::exception("Window creation failed");
 		}
 	}
 
 	void run() {
-		while(!dgShouldWindowClose(0)) {
-			dgUpdate();
+		while(!Dragon::shouldWindowClose(0)) {
+			Dragon::update();
 		}
-		dgCloseWindow(0);
+		Dragon::closeWindow(0);
 	}
 };
 
@@ -27,14 +27,16 @@ int main(void)
 	try {
 		app = App();
 		app.run();
-	} catch(DgBaseException_T &e) {
-		if(const char** exc_info=boost::get_error_info<DgExceptionInfo>(e)) {
-			std::cerr << "Error Found: " << *exc_info << std::endl;
+	} catch(Dragon::BaseException &e) {
+		if(const char** exc_info=boost::get_error_info<Dragon::ExceptionInfo>(e)) {
+			std::cerr << "Dragon Error Found: " << *exc_info << std::endl;
+		} else {
+			std::cerr << "Dragon Error was thrown, but no information was found." << std::endl;
 		}
 	} catch(std::exception &e) {
 		std::cerr << "Non-Dragon Error found: " << e.what() << std::endl;
 	}
 
-	dgTerminate();
+	Dragon::terminate();
 	return 0x0000;
 }
