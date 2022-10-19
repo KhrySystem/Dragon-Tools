@@ -232,8 +232,6 @@ if(Dragon_FOUND AND Dragon_Thunderbreath_LIBRARY AND NOT TARGET Dragon::Thunderb
 	list(APPEND Dragon_LINK_LIBRARIES ${Dragon_Thunderbreath_LIBRARY})
 endif()
 
-if(Vulkan_GLSLangValidator_FOUND)
-
 unset(_dragon_hint_binary_search_paths)
 unset(_dragon_hint_header_search_paths)
 cmake_policy(POP)
