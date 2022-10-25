@@ -1,9 +1,9 @@
-#define DRAGON_STREAMBREATH_ENABLED
 #include <dragon/dragon.hpp>
 #include <iostream>
 
 struct App {
 	App() {
+		Dragon::setOption(DRAGON_STREAMBREATH_ENABLED, DG_TRUE);
 		Dragon::init("openWindow.cpp");
 
 		Dragon::WindowCreateParams params{};
