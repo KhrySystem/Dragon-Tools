@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 VK_SDK_PATH = os.environ.get("VK_SDK_PATH")
 
@@ -10,6 +10,15 @@ DG_UPDATE_TYPE = os.environ.get("DG_UPDATE_TYPE")
 DG_SDK_PATH = os.environ.get("DG_SDK_PATH")
 PATH = os.environ.get("Path").split(os.pathsep)
 PATH_EXT = os.environ.get("PATH_EXT")
+
+DG_SYSTEM_INSTALL_PATH = ""
+if "linux" == sys.platform or "linux2" == sys.platform:
+    DG_SYSTEM_INSTALL_PATH = "/" # Install into systemwide platform
+    DG_INSTALL_USER_PATH = "~/"
+elif "win32" == sys.platform or "cygwin" == sys.platform or "msys" == sys.platform:
+    DG_SYSTEM_INSTALL_PATH = "C:\\DragonEngine"
+    DG_INSTALL_USER_PATH = os.getenv["userprofile"] + "\\"
+elif ""
 
 def isVulkanInstalled():
     return (VK_SDK_PATH != None)

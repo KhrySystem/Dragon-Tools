@@ -9,6 +9,7 @@ from install import install_all
 import PySimpleGUI as sg
 
 from frames import window
+current_frame = 1
 
 def main():
     global current_frame

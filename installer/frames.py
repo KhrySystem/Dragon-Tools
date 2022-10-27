@@ -26,42 +26,12 @@ f2 = [
         sg.Checkbox("Install Dragon Source (requires CMake)", default=True, key="-DGSI-")
     ], 
     [
-        sg.Text("Dragon Install Path (Default is \"C:\\Program Files\\DragonEngine\\\")"), 
+        sg.Text("Dragon Install Path (Default is \"C:\\DragonEngine\\\")"), 
         sg.In("C:\\Program Files\\DragonEngine\\", size=(60, 1), enable_events=True, key="InstallDir"),
         sg.FolderBrowse()
     ],
     [
         sg.HorizontalSeparator()
-    ],
-    [
-        sg.Text("Select Vulkan Options", visible=(not isVulkanInstalled()))
-    ],
-    [
-        sg.Checkbox("Install Vulkan Headers", visible=(not isVulkanInstalled()), default=True, key="-VKHI-"),
-        sg.Checkbox("Install Vulkan Validation Layers", visible=(not isVulkanInstalled()), default=True, key="-VKVI-"),
-        sg.Checkbox("Install MoltenVK", visible=(not isVulkanInstalled()), default=True, key="-MVKI-"),
-        sg.Checkbox("Install Vulkan Loader", visible=(not isVulkanInstalled()), default=True, key="-VKLI-")
-    ],
-    [
-        sg.Checkbox("Install Vulkan Profile Tools (Beta)", visible=(not isVulkanInstalled()), default=False, key="-VKPI-"),
-        sg.Checkbox("Install Vulkan Extension Layer", visible=(not isVulkanInstalled()), default=True, key="-VKEI-"),
-        sg.Checkbox("Install Vulkan Memory Model", visible=(not isVulkanInstalled()), default=True, key="-VKMI-")
-    ],
-    [
-        sg.Text("Vulkan Install Path (Default is \"C:\\Program Files\\VulkanSDK\\\")", visible=(not isVulkanInstalled())),
-        sg.In("C:\\Program Files\\VulkanSDK\\", visible=(not isVulkanInstalled()), key="-VKIP-")
-    ],
-    [
-        sg.HorizontalSeparator(color=(sg.DEFAULT_BACKGROUND_COLOR if not isVulkanInstalled() else '#FFFFFF'))
-    ],
-    [
-        sg.Text("Select SPIRV Options", visible=(not isVulkanInstalled()))
-    ],
-    [
-        sg.Checkbox("Install SPIRV Reflect", visible=(not isVulkanInstalled()), default=True, key="-SPRI-"),
-        sg.Checkbox("Install SPIRV Tools", visible=(not isVulkanInstalled()), default=True, key="-SPTI-"),
-        sg.Checkbox("Install SPIRV Cross", visible=(not isVulkanInstalled()), default=True, key="-SPCI-"),
-        sg.Checkbox("Install SPIRV Headers", visible=(not isVulkanInstalled()), default=True, key="-SPHI-")
     ],
     [
         sg.HorizontalSeparator(color=(sg.DEFAULT_BACKGROUND_COLOR if not isVulkanInstalled() else '#FFFFFF'))
