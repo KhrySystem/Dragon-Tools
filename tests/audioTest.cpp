@@ -17,7 +17,11 @@ int main(void) {
     setOption(DRAGON_THUNDERBREATH_ENABLED, DG_FALSE);
 
     init("audioTest.cpp");
-    Stream::setErrorCallback(errorCallback);
+    Stream::setErrorCallback(&errorCallback);
+
+    while(!shouldWindowClose(0)) {
+
+    }
 
     terminate();
 }
