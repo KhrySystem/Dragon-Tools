@@ -2,9 +2,8 @@
 
 #include <dragon/dragon.hpp>
 
-using namespace Dragon::Error;
+using namespace Dragon;
 
-void errorCallback(ErrorInfo eInfo) {
-    
-    printf("Error:\n\tCode:%s\n\tMessage:%s",  eInfo.code, eInfo.message);
+void messageCallback(Message message) {
+    printf("Error:\n\tCode:%I64i\n\tMessage:%s",  message.code, message.message.c_str());
 }

@@ -5,50 +5,13 @@
 FindDragon
 ----------
 
-This module respects several optional COMPONENTS.
-There are corresponding imported targets for each of these.
-
-``Firebreath``
-	DragonEngine Extension for XR through OpenXR.
-
-``Ironbreath``
-	DragonEngine Extension for Apple OSX support through Metal.
-
-``Lightbreath``
-	DragonEngine Extension for networking using Boost.asio.
-
-``Streambreath``
-	DragonEngine Extension for Debug applications through Vulkan 
-	Validation Layers.
-
-``Tools``
-	Assisting CMake macros for DragonEngine to use for simplicity.
-
 IMPORTED Targets
 ^^^^^^^^^^^^^^^^
 
 This module defined "prop_tgt:`IMPORTED` targets if Dragon has been found:
 
 ``Dragon::Dragon``
-	The Main DragonEngine DLL.
-
-``Dragon::Firebreath``
-	The DragonEngine XR Extension, if found. Optional-installed piece. 
-
-``Dragon::Ironbreath``
-	The DragonEngine Apple OSX Extension, if found. May be found on 
-	other systems for cross-compiling. 
-
-``Dragon::Lightbreath``
-	The DragonEngine Networking Extension, if found. May not be found on
-	minimal distributions, or may be packaged into the main DLL.
-
-``Dragon::Streambreath``
-	The DragonEngine Debug Extension, if found. May be packaged into the 
-	main library depending on version.
-
-``Dragon::Thunderbreath``
-	The DragonEngine GPU Acceleration Extension, if found. 
+	The Main DragonEngine Library.
 
 ``Dragon::Tools``
 	Provides installer source code and tests, if found. 
@@ -62,24 +25,12 @@ This module defined the following variables:
 	set to true if Dragon was found
 ``Dragon_INCLUDE_DIRS``
 	include directories for Dragon 
-``Dragon_LINK_DIRECTORIES``
-	link against these directories to use Dragon
 ``Dragon_LINK_LIBRARIES``
 	link against these libraries to use Dragon
 ``Dragon_VERSION``
-	value from ``dragon/dg_backend.h`` or environment variables
+	value from ``dragon/predef/core.hpp`` or environment variables
 ``Dragon_Tools_FOUND``
 	True, if the SDK has found the assist tools
-``Dragon_Firebreath_FOUND``
-	True, if the SDKmhas found Dragon's Firebreath library
-``Dragon_Ironbreath_FOUND``
-	True, if the SDK has found Dragon's Ironbreath library
-``Dragon_Lightbreath_FOUND``
-	True, if the SDK has found Dragon's Lightbreath library
-``Dragon_Streambreath_FOUND``
-	True, if the SDK has found Dragon's Streambreath library
-``Dragon_Thunderbreath_FOUND``
-	True, if the SDK has found Dragon's Thunderbreath library
 
 The module will also define these cache variables:
 
@@ -87,16 +38,6 @@ The module will also define these cache variables:
 	the Dragon include directory
 ``Dragon_LIBRARY``
 	the path to the Dragon library
-``Dragon_Firebreath_LIBRARY``
-	the path to Dragon's Firebreath library
-``Dragon_Ironbreath_LIBRARY``
-	the path to Dragon's Ironbreath library
-``Dragon_Lightbreath_LIBRARY``
-	the path to Dragon's Lightbreath library
-``Dragon_Streambreath_LIBRARY``
-	the path to Dragon's Streambreath library
-``Dragon_Thunderbreath_LIBRARY``
-	the path to Dragon's Thunderbreath library
 ``Dragon_Tools_PATH``
 	the path to Dragon's tools. 
 
@@ -125,6 +66,7 @@ list(APPEND Dragon_LINK_LIBRARIES ${Vulkan_LIBRARIES} ${Boost_LIBRARIES})
 if(OpenCL_FOUND)
 	list(APPEND Dragon_INCLUDE_DIRS ${OpenCL_INCLUDE_DIRS})
 	list(APPEND Dragon_LINK_LIBRARIES ${OpenCL_LINK_LIBS})
+endif()
 
 set(_dragon_hint_binary_search_paths "$ENV{DG_SDK_PATH}/bin")
 set(_dragon_hint_header_search_paths "$ENV{DG_SDK_PATH}/include")
@@ -134,55 +76,23 @@ find_path(Dragon_INCLUDE_DIR
 	HINTS 
 		${_dragon_hint_header_search_paths}
 )
-mark_as_advanced(Dragon_INCLUDE_DIR)
 
 find_library(Dragon_LIBRARY
 	NAMES dragon-1 dragon-0 dragon
 	HINTS
 		${_dragon_hint_binary_search_paths}
 )
+
+mark_as_advanced(Dragon_INCLUDE_DIR)
 mark_as_advanced(Dragon_LIBRARY)
-
-find_library(Dragon_Firebreath_LIBRARY
-	NAMES firebreath
-	HINTS
-		${_dragon_hint_binary_search_paths}
-)
-mark_as_advanced(Dragon_Firebreath_LIBRARY)
-
-find_library(Dragon_Ironbreath_LIBRARY
-	NAMES ironbreath
-	HINTS
-		${_dragon_hint_binary_search_paths}
-)
-mark_as_advanced(Dragon_Ironbreath_LIBRARY)
-
-find_library(Dragon_Lightbreath_LIBRARY
-	NAMES lightbreath
-	HINTS
-		${_dragon_hint_binary_search_paths}
-)
-mark_as_advanced(Dragon_lightbreath_LIBRARY)
-
-find_library(Dragon_Streambreath_LIBRARY
-	NAMES streambreath
-	HINTS
-		${_dragon_hint_binary_search_paths}
-)
-mark_as_advanced(Dragon_Streambreath_LIBRARY)
-
-find_library(Dragon_Thunderbreath_LIBRARY
-	NAMES thunderbreath
-	HINTS
-		${_dragon_hint_binary_search_paths}
-)
-mark_as_advanced(Dragon_Thunderbreath_LIBRARY)
 
 if(Dragon_INCLUDE_DIR AND Dragon_LIBRARY)
 	set(Dragon_FOUND TRUE)
 else()
 	set(Dragon_FOUND FALSE)
 endif()
+
+
 
 if(Dragon_FOUND AND NOT TARGET Dragon::Dragon)
 	add_library(Dragon::Dragon UNKNOWN IMPORTED)
