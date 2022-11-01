@@ -7,11 +7,20 @@ using namespace Dragon;
 
 int main(void) {
 	printf("OpenWindow.cpp");
-	Engine engine = initEngine();
+	CreateInfo createInfo{};
+	createInfo.name = "openWindow.cpp";
+	createInfo.pCallback = &mCallback;
+
+	Engine engine;
+
+	if(createEngine(&engine, &createInfo) != DG_TRUE {
+		printf("One Hell of an error occurred.\n");
+		terminateEngine(&engine);
+	} 
 
 	while(!canEngineBeTerminated(engine)) {
 		updateEngine(engine);
 	}
 
-	terminateEngine(engine, DRAGON_TERMINATE_ALL);
+	terminateEngine(engine);
 }
