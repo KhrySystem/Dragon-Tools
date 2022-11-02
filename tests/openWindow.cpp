@@ -9,18 +9,21 @@ int main(void) {
 	printf("OpenWindow.cpp");
 	CreateInfo createInfo{};
 	createInfo.name = "openWindow.cpp";
-	createInfo.pCallback = &mCallback;
 
 	Engine engine;
 
-	if(createEngine(&engine, &createInfo) != DG_TRUE {
-		printf("One Hell of an error occurred.\n");
+	if(createEngine(&engine, &createInfo, &mCallback) != DG_TRUE) {
+		printf("createEngine failed.");
+		// ensure engine doesn't have a stroke
 		terminateEngine(&engine);
+		return 1;
 	} 
+	printf("Engine created");
 
-	while(!canEngineBeTerminated(engine)) {
-		updateEngine(engine);
+	while(!canEngineBeTerminated(&engine)) {
+		updateEngine(&engine);
 	}
-
-	terminateEngine(engine);
+	terminateEngine(&engine);
+	printf("Engine terminated");
+	return 0;
 }

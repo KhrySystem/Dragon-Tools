@@ -3,10 +3,6 @@ import os
 import shutil
 import sys
 
-for arg in sys.argv:
-	if arg == "--get-deps":
-		pass
-
 PATH = os.getenv("Path").split(";")
 
 def get_files(directory: str) -> list:
@@ -15,8 +11,8 @@ def get_files(directory: str) -> list:
 	for i in items:
 		if "." in i:
 			files.append(i)
-
 	return files
+	
 def get_dirs(directory: str) -> list:
 	items = os.listdir(directory)
 	dirs = []
