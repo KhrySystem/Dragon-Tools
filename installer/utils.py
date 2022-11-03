@@ -1,34 +1,73 @@
-import os, sys
+import os
+import shutil
 
-VK_SDK_PATH = os.environ.get("VK_SDK_PATH")
+def get_files(directory: str) -> list:
+	items = os.listdir(directory)
+	files = []
+	for i in items:
+		if "." in i:
+			files.append(i)
+	return files
+	
+def get_dirs(directory: str) -> list:
+	items = os.listdir(directory)
+	dirs = []
+	for i in items:
+		if not "." in i:
+			dirs.append(i)
 
-DG_VERSION_VAR = os.environ.get("DG_VERSION_VAR")
-DG_VERSION_MAJ = os.environ.get("DG_VERSION_MAJ")
-DG_VERSION_MIN = os.environ.get("DG_VERSION_MIN")
-DG_VERSION_FIX = os.environ.get("DG_VERSION_FIX")
-DG_UPDATE_TYPE = os.environ.get("DG_UPDATE_TYPE")
-DG_SDK_PATH = os.environ.get("DG_SDK_PATH")
-PATH = os.environ.get("Path").split(os.pathsep)
-PATH_EXT = os.environ.get("PATH_EXT")
+	return dirs
+def get_items(directory: str) -> tuple:
+	return (get_dirs(directory), get_files(directory))
+def copy_headers_in_path(src: str, dest: str):
+	dirs, f_names = get_items(src)
+	try:
+		os.makedirs(dest)
+	except:
+		pass
+	for f in f_names:
+		if ".h" in f:
+			shutil.copy(src + f, dest + f)
+	for d in dirs:
+		try:
+			copy_headers_in_path(src + d + "\\", dest + d + "\\")
+		except:
+			pass
 
-DG_SYSTEM_INSTALL_PATH = ""
-if "linux" == sys.platform or "linux2" == sys.platform:
-    DG_SYSTEM_INSTALL_PATH = "/" # Install into systemwide platform
-    DG_INSTALL_USER_PATH = "~/"
-elif "win32" == sys.platform or "cygwin" == sys.platform or "msys" == sys.platform:
-    DG_SYSTEM_INSTALL_PATH = "C:\\DragonEngine"
-    DG_INSTALL_USER_PATH = os.getenv["userprofile"] + "\\"
-elif ""
+def copy_source_in_path(src: str, dest: str):
+	dirs, f_names = get_items(src)
+	try:
+		os.makedirs(dest)
+	except:
+		pass
+	for f in f_names:
+		if ".c" in f:
+			shutil.copy(src + f, dest + f)
+	for d in dirs:
+		try:
+			copy_source_in_path(src + d + "\\", dest + d + "\\")
+		except:
+			pass
+def copy_binaries_in_path(src: str, dest: str):
+	dirs, f_names = get_items(src)
+	try:
+		os.makedirs(dest)
+	except:
+		pass
+	for f in f_names:
+		if ".exe" in f:
+			shutil.copy(src + f, dest + f)
+		elif ".dll" in f:
+			shutil.copy(src + f, dest + f)
+		elif ".pdb" in f:
+			shutil.copy(src + f, dest + f)
+		elif ".exp" in f:
+			shutil.copy(src + f, dest + f)
+		elif ".lib" in f:
+			shutil.copy(src + f, dest + f)
 
-def isVulkanInstalled():
-    return (VK_SDK_PATH != None)
-
-def isDragonInstalled():
-    return (DG_VERSION_MAJ != None) or (DG_VERSION_MIN != None) or (DG_VERSION_FIX != None) or (DG_UPDATE_TYPE != None)
-
-def getVulkanVersion():
-    if VK_SDK_PATH != None:
-        temp = VK_SDK_PATH.split("\\")
-        return temp[len(temp) - 1]
-    else:
-        return None
+	for d in dirs:
+		try:
+			copy_binaries_in_path(src + d + "\\", dest + d + "\\")
+		except:
+			pass
